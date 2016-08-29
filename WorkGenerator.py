@@ -3,7 +3,9 @@ import subprocess
 import os, os.path as osp
 from uuid import uuid4
 
-
+"""
+    Metodo que llama al stage file de boinc
+"""
 def stage_file(filename):
     name,ext = osp.splitext(filename)
     fullname = name + '_' + uuid4().hex + ext
@@ -12,6 +14,18 @@ def stage_file(filename):
     return fullname
 
 #TODO: Generar el nombre del workunit aleatorio
+
+"""
+    Metodo que llama al create work con un work unit name aleatorio
+"""
+def create_work_random_wu(appname, filenames):
+    work_unit_name = uuid4().hex
+    create_work(appname, work_unit_name, filenames)
+
+
+"""
+    Metodo que crea un trabajo dado el nombre de un workuni
+"""
 def create_work(appname, work_unit_name, filenames):
     arguments = "--appname %s --wu_name %s" % (appname, work_unit_name)
     for filename in filenames:
