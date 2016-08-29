@@ -1,6 +1,5 @@
 import os
 import subprocess
-import os, os.path as osp
 from uuid import uuid4
 
 """
@@ -24,7 +23,7 @@ def create_work_random_wu(appname, filenames):
 
 
 """
-    Metodo que crea un trabajo dado el nombre de un workuni
+    Metodo que crea un trabajo dado el nombre de un workunit
 """
 def create_work(appname, work_unit_name, filenames):
     arguments = "--appname %s --wu_name %s" % (appname, work_unit_name)
