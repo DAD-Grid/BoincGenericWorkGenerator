@@ -17,7 +17,7 @@ class WorkUnit:
     """
         Metodo que crea un trabajo
     """
-    def create_work(appname, work_unit_name, filenames, appdir):
+    def create_work():
         util.create_work(self.app.name, self.name, self.files, self.app.directory)
         
     

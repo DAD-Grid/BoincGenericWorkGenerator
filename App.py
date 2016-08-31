@@ -19,5 +19,8 @@ class App:
     """
         Metodo que crea un worunit
     """
-    def create_work():
-        pass # ver como se puede hacer esto mejor
+    def create_work_unit(work_unit_name = None, filenames):
+        for filename in filenames:
+	    stage_file(filename)
+	workUnit = new WorkUnit(this, filenames)
+	return workUnit.create_work()
