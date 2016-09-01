@@ -22,5 +22,6 @@ class App:
     def create_work_unit(work_unit_name = None, filenames):
         for filename in filenames:
 	    stage_file(filename)
-	workUnit = new WorkUnit(this, filenames)
+	workUnit = WorkUnit(this, filenames)
+	self.work_units.append(workUnit)
 	return workUnit.create_work()
