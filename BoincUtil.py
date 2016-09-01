@@ -15,6 +15,7 @@ def stage_file(filename, appdir):
 def create_work(appname, work_unit_name, filenames, appdir):
     arguments = "--appname %s --wu_name %s" % (appname, work_unit_name)
     for filename in filenames:
-        real_name = stage_file(filename)
-        arguments += " %s" % real_name 
+        real_name = stage_file(filename, appdir)
+        arguments += " %s" % real_name
+    print appdir + "/bin/create_work " +arguments
     subprocess.call([appdir + "/bin/create_work " +arguments], shell=True)
