@@ -5,9 +5,10 @@ from uuid import uuid4
 
 
 def stage_file(filename, project_dir):
-    name,ext = osp.splitext(filename)
+    head, tail = os.path.split(filename)
+    name, ext = osp.splitext(tail)
     fullname = name + '_' + uuid4().hex + ext
-    download_path = subprocess.check_output(['bin/dir_hier_path', fullname], cwd = project_dir).strip()
+    download_path = subprocess.check_output(['bin/dir_hier_path', osp.join(head, fullname)], cwd = project_dir).strip()
     subprocess.call(["cp", filename, download_path])
     return fullname
 
