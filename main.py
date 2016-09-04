@@ -4,5 +4,5 @@ from GenericWorkGenerator import GenericWorkGenerator
 if __name__ == '__main__':
 	app = App("worker",".")
 	generator = GenericWorkGenerator("bin/generator", "bin/fruit1.png")
-	generator.create_work()
+	generator.create_work(app)
 	print "Done!"
