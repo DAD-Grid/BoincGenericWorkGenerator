@@ -21,8 +21,9 @@ class App:
         Metodo que crea un workunit
     """
     def create_work_unit(self, filenames, work_unit_name = None):
+        real_filenames = []
         for filename in filenames:
-	        self.stage_file(filename)
-        workUnit = WorkUnit(self, filenames, work_unit_name)
+	        real_filenames.append(self.stage_file(filename))
+        workUnit = WorkUnit(self, real_filenames, work_unit_name)
         workUnit.create_work()
         self.work_units.append(workUnit)

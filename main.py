@@ -1,7 +1,8 @@
 from App import App
+from GenericWorkGenerator import GenericWorkGenerator
 
 if __name__ == '__main__':
+	app = App("worker",".")
+	generator = GenericWorkGenerator("bin/generator", "bin/fruit1.png")
+	generator.create_work()
 	print "Done!"
-	app = App("worker","/home/boincadm/projects/testproject")
-	app.stage_file("file1.txt")
-	app.create_work_unit(["file.txt"])
