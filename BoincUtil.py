@@ -4,7 +4,9 @@ import os, os.path as osp
 from uuid import uuid4
 import xml.etree.cElementTree as ET
 
-
+"""
+    metodo que crea un input template por simple
+"""
 def create_input_template(filename, project_dir, number):
     xml = """<file_info>
             <number>%i</number>
@@ -17,6 +19,7 @@ def create_input_template(filename, project_dir, number):
             </file_ref>
             <rsc_fpops_bound>1e12</rsc_fpops_bound>
             <rsc_fpops_est>1e14</rsc_fpops_est>
+            <rsc memory bound>1e8</rsc memory bound>.
         </workunit>
     """ % (number, number, filename)
     fo = open(osp.join(project_dir, "templates", filename), "wb")
