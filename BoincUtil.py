@@ -36,16 +36,10 @@ def stage_file(filename, project_dir):
     return fullname
 
 def create_work(appname, work_unit_name, filenames, project_dir):
-    args = []
-    args.append("bin/create_work")
-    args.append("--appname")
-    args.append(appname)
-    args.append("--wu_name")
-    args.append(work_unit_name)
+    args = ["bin/create_work", "--appname", appname, "--wu_name",  work_unit_name]
     for filename in filenames:
         real_name = stage_file(filename, project_dir)
         args.append("--wu_template")
         args.append("templates/"+real_name)
         args.append(real_name)
-    arguments = arguments[:-1]
     subprocess.call(args, cwd = project_dir)
