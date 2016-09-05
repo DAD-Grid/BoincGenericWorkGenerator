@@ -22,7 +22,6 @@ def create_input_template(filename, project_dir, number):
     fo = open(osp.join(project_dir, "templates", filename), "wb")
     fo.write(xml)
     fo.close()
-    return input_file_name
 
 def stage_file(filename, project_dir):
     head, tail = os.path.split(filename)
@@ -37,6 +36,6 @@ def create_work(appname, work_unit_name, filenames, project_dir):
     arguments = "--appname %s --wu_name %s" % (appname, work_unit_name)
     for filename in filenames:
         real_name = stage_file(filename, project_dir)
-        rguments += "--wu_template %s" % real_name
+        arguments += "--wu_template %s" % real_name
         arguments += " %s" % real_name
     subprocess.call([project_dir + "/bin/create_work", arguments])
