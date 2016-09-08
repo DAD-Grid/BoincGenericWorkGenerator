@@ -1,12 +1,13 @@
 import os
 import subprocess
 import os, os.path as osp
+import logging
 from uuid import uuid4
-import xml.etree.cElementTree as ET
 
 
 
 def create_output_template(filename, project_dir, number):
+    template_name = filename + ".out"
     xml = """
     <output_template>
         <file_info>
@@ -25,14 +26,17 @@ def create_output_template(filename, project_dir, number):
         </result>
     </output_template>
     """
-    fo = open(osp.join(project_dir, "templates", filename), "wb")
+    fo = open(osp.join(project_dir, "templates", template_name), "wb")
+    logging.info("Output template %s generated" % template_name)
     fo.write(xml)
     fo.close()
+    return template_name
 
 """
     metodo que crea un input template por simple
 """
 def create_input_template(filename, project_dir, number):
+    template_name = filename + ".in"
     xml = """
     <input_template>
         <file_info>
@@ -50,9 +54,11 @@ def create_input_template(filename, project_dir, number):
         </workunit>
     </input_template>
     """ % (number, number, filename)
-    fo = open(osp.join(project_dir, "templates", filename), "wb")
+    logging.info("Input template %s generated" % template_name)
+    fo = open(osp.join(project_dir, "templates", template_name), "wb")
     fo.write(xml)
     fo.close()
+    return template_name
 
 """
     metodo que agrega un archivo con determinado nombre a un proyecto que esta en ese directorio
@@ -62,6 +68,8 @@ def stage_file(filename, project_dir):
     name, ext = osp.splitext(tail)
     fullname = name + '_' + uuid4().hex + ext
     create_input_template(fullname, project_dir,0) # ojo, esta quemado el cero ahora
+    create_output_template(fullname, project_dir, 0)
+    logging.info(' '.join(['bin/dir_hier_path', fullname]))
     download_path = subprocess.check_output(['bin/dir_hier_path', fullname], cwd = project_dir).strip()
     subprocess.call(["cp", filename, download_path])
     return fullname
@@ -75,6 +83,9 @@ def create_work(appname, work_unit_name, filenames, project_dir):
     for filename in filenames:
         real_name = stage_file(filename, project_dir)
         args.append("--wu_template")
-        args.append("templates/"+real_name)
+        args.append("templates/"+real_name+".in")
+        args.append("--result_templates")
+        args.append("templates/"+real_name+".out")
         args.append(real_name)
+    logging.info(' '.join(args))
     subprocess.call(args, cwd = project_dir)
