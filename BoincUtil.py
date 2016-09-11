@@ -25,12 +25,12 @@ def create_output_template(filename, project_dir, number):
         <result>
             <file_ref>
                 <file_name><OUTFILE_0/></file_name>
-                <open_name>%s</open_name>
+                <open_name>fruit1_salida.png</open_name>
                 <copy_file/>
             </file_ref>
         </result>
     </output_template>
-    """ % (output_filename)
+    """ #% (output_filename)
 
     fo = open(osp.join(project_dir, "templates", template_name), "wb")
     logging.info("Output template %s generated" % template_name)
@@ -51,7 +51,7 @@ def create_input_template(filename, project_dir, number):
         <workunit>
             <file_ref>
                 <file_number>%i</file_number>
-                <open_name>%s</open_name>
+                <open_name>fruit1.png</open_name>
                 <copy_file/>
             </file_ref>
             <rsc_fpops_bound>1e12</rsc_fpops_bound>
@@ -59,7 +59,7 @@ def create_input_template(filename, project_dir, number):
             <rsc_memory_bound>1e8</rsc_memory_bound>
         </workunit>
     </input_template>
-    """ % (number, number, filename)
+    """ % (number, number)#, filename)
     logging.info("Input template %s generated" % template_name)
     fo = open(osp.join(project_dir, "templates", template_name), "wb")
     fo.write(xml)
