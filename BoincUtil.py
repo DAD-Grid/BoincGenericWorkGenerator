@@ -7,6 +7,11 @@ from uuid import uuid4
 
 
 def create_output_template(filename, project_dir, number):
+
+    head, file = os.path.split(filename)
+    filename_no_extension, ext = osp.splitext(tail)
+    output_filename = filename_no_extension + "_salida" + ext
+
     template_name = filename + ".out"
     xml = """
     <output_template>
@@ -20,12 +25,13 @@ def create_output_template(filename, project_dir, number):
         <result>
             <file_ref>
                 <file_name><OUTFILE_0/></file_name>
-                <open_name>out</open_name>
+                <open_name>%s</open_name>
                 <copy_file/>
             </file_ref>
         </result>
     </output_template>
-    """
+    """ % (output_filename)
+
     fo = open(osp.join(project_dir, "templates", template_name), "wb")
     logging.info("Output template %s generated" % template_name)
     fo.write(xml)
@@ -84,7 +90,7 @@ def create_work(appname, work_unit_name, filenames, project_dir):
         real_name = stage_file(filename, project_dir)
         args.append("--wu_template")
         args.append("templates/"+real_name+".in")
-        args.append("--result_templates")
+        args.append("--result_template")
         args.append("templates/"+real_name+".out")
         args.append(real_name)
     logging.info(' '.join(args))
