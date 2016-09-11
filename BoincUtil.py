@@ -8,10 +8,10 @@ from uuid import uuid4
 
 def create_output_template(filename, project_dir, number):
 
-    head, file = os.path.split(filename)
+    head, tail = os.path.split(filename)
     filename_no_extension, ext = osp.splitext(tail)
     output_filename = filename_no_extension + "_salida" + ext
-
+    logging.info("Se crea el archivo de salida " + output_filename)
     template_name = filename + ".out"
     xml = """
     <output_template>
