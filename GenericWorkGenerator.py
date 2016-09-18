@@ -5,7 +5,7 @@ from uuid import uuid4
 
 class GenericWorkGenerator:
 
-    def __init__(self, generator_path, image_path, height = 10, width = 10):
+    def __init__(self, generator_path, image_path, height = 2, width = 2):
         self.generator_path = generator_path
         self.image_path = image_path
         self.height = height
