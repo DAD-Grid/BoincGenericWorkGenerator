@@ -30,9 +30,9 @@ class GenericWorkGenerator:
         images = os.listdir(os.path.join(os.path.abspath(os.path.join(self.generator_path, '..')),image_folder))
         for image in images:
             image_location = os.path.abspath(os.path.join(head,image_folder,image))
-            app.create_work_unit([image_location])
+            app.create_work_unit([image_location], image + uuid4().hex)
         #limpiar los resultados que ya estan stagged
-        #subprocess.call(["rm","-rf",image_folder], cwd = head)        
+        subprocess.call(["rm","-rf",image_folder], cwd = head)
 
 
 
