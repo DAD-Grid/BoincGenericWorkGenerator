@@ -5,7 +5,9 @@ import logging
 from uuid import uuid4
 
 
-
+"""
+    metodo que genera un template de salida simple y lo guarda en templates del proyecto
+"""
 def create_output_template(filename, project_dir, number):
 
     head, tail = os.path.split(filename)
@@ -30,7 +32,7 @@ def create_output_template(filename, project_dir, number):
             </file_ref>
         </result>
     </output_template>
-    """ #% (output_filename)
+    """
 
     fo = open(osp.join(project_dir, "templates", template_name), "wb")
     logging.info("Output template %s generated" % template_name)
@@ -39,7 +41,7 @@ def create_output_template(filename, project_dir, number):
     return template_name
 
 """
-    metodo que crea un input template por simple
+    metodo que crea un input template simple y lo guarda en la carpeta templates del proyecto
 """
 def create_input_template(filename, project_dir, number):
     template_name = filename + ".in"
@@ -59,7 +61,7 @@ def create_input_template(filename, project_dir, number):
             <rsc_memory_bound>1e8</rsc_memory_bound>
         </workunit>
     </input_template>
-    """ % (number, number)#, filename)
+    """ % (number, number)
     logging.info("Input template %s generated" % template_name)
     fo = open(osp.join(project_dir, "templates", template_name), "wb")
     fo.write(xml)
@@ -73,8 +75,6 @@ def stage_file(filename, project_dir):
     head, tail = os.path.split(filename)
     name, ext = osp.splitext(tail)
     fullname = name + '_' + uuid4().hex + ext
-    create_input_template(fullname, project_dir,0) # ojo, esta quemado el cero ahora
-    create_output_template(fullname, project_dir, 0)
     logging.info(' '.join(['bin/dir_hier_path', fullname]))
     download_path = subprocess.check_output(['bin/dir_hier_path', fullname], cwd = project_dir).strip()
     subprocess.call(["cp", filename, download_path])
@@ -88,10 +88,6 @@ def create_work(appname, work_unit_name, filenames, project_dir):
     args = ["bin/create_work", "--appname", appname, "--wu_name",  work_unit_name]
     for filename in filenames:
         real_name = stage_file(filename, project_dir)
-        args.append("--wu_template")
-        args.append("templates/"+real_name+".in")
-        args.append("--result_template")
-        args.append("templates/"+real_name+".out")
         args.append(real_name)
     logging.info(' '.join(args))
     subprocess.call(args, cwd = project_dir)
