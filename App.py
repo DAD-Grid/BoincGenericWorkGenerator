@@ -1,4 +1,5 @@
 import BoincUtil as util
+import os.path
 from WorkUnit import *
 
 class App:
@@ -23,6 +24,10 @@ class App:
     def create_work_unit(self, filenames, work_unit_name = None):
         #for filename in filenames:
 	        #real_filenames.append(self.stage_file(filename))
+	if not os.path.exists(self.directory + '/templates/' + self.name + "_in"):
+		util.create_input_template(self.name, self.directory)
+	if not os.path.exists(self.directory + '/templates/' + self.name + "_out"):
+		util.create_output_template(self.name, self.directory)
         workUnit = WorkUnit(self, filenames, work_unit_name)
         workUnit.create_work()
         self.work_units.append(workUnit)

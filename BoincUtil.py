@@ -8,13 +8,9 @@ from uuid import uuid4
 """
     metodo que genera un template de salida simple y lo guarda en templates del proyecto
 """
-def create_output_template(filename, project_dir, number):
+def create_output_template(app_name, project_dir):
 
-    head, tail = os.path.split(filename)
-    filename_no_extension, ext = osp.splitext(tail)
-    output_filename = filename_no_extension + "_salida" + ext
-    logging.info("Se crea el archivo de salida " + output_filename)
-    template_name = filename + ".out"
+    template_name = app_name + "_out"
     xml = """
     <output_template>
         <file_info>
@@ -43,16 +39,16 @@ def create_output_template(filename, project_dir, number):
 """
     metodo que crea un input template simple y lo guarda en la carpeta templates del proyecto
 """
-def create_input_template(filename, project_dir, number):
-    template_name = filename + ".in"
+def create_input_template(app_name, project_dir):
+    template_name = app_name + "_in"
     xml = """
     <input_template>
         <file_info>
-            <number>%i</number>
+            <number>0</number>
         </file_info>
         <workunit>
             <file_ref>
-                <file_number>%i</file_number>
+                <file_number>0</file_number>
                 <open_name>fruit1.png</open_name>
                 <copy_file/>
             </file_ref>
@@ -61,7 +57,7 @@ def create_input_template(filename, project_dir, number):
             <rsc_memory_bound>1e8</rsc_memory_bound>
         </workunit>
     </input_template>
-    """ % (number, number)
+    """
     logging.info("Input template %s generated" % template_name)
     fo = open(osp.join(project_dir, "templates", template_name), "wb")
     fo.write(xml)
